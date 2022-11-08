@@ -111,8 +111,10 @@ def run_experiment(
         flagfile_path = os.path.join(LOG_DIR, "flags.txt")
         with open(flagfile_path, "w") as f:
             for (flag, value) in config.items():
-                if flag == "device" and cuda_id > 0:
-                    f.write(f"--device=cuda:{cuda_id}\n")
+                # if flag == "device" and cuda_id > 0:
+                #     f.write(f"--device=cuda:{cuda_id}\n")
+                if flag == "device":
+                    f.write(f"--device=cpu\n")
                 else:
                     f.write(f"--{flag}={value}\n")
             f.write(f"--log_path={log_path}\n")

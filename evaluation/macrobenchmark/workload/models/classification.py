@@ -85,7 +85,7 @@ model_args = {
 }
 
 training_args = {
-    "device": "cuda",
+    "device": "cpu",
     "learning_rate": 0.01,
     "dp": 0,
     "dp_eval": 0,
@@ -149,6 +149,7 @@ def build_split_dataset():
     logging.info(f"Selecting {FLAGS.n_blocks_test} test blocks (fixed randomness).")
     test_blocks = np.random.choice(all_blocks, FLAGS.n_blocks_test, replace=False)
 
+    # Reserve for test data
     for tb in test_blocks:
         all_blocks.remove(tb)
 
@@ -163,6 +164,7 @@ def build_split_dataset():
     logging.info(
         f"Selecting as few users as possible.\n Pseudorandom and deterministic (hashed user ids)."
     )
+    # sort by number of users
     selected_blocks = sorted(all_blocks, key=sort_by_user)[0 : FLAGS.n_blocks]
 
     if FLAGS.dataset_dir[0:5] == "gs://":

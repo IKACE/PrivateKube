@@ -1,4 +1,4 @@
-from evaluation.macrobenchmark.utils import get_name
+from utils import get_name
 import typer
 from loguru import logger
 from pathlib import Path
